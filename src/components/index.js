@@ -5,5 +5,5 @@ import Profile from './Profile';
 
 // prettier-ignore
 export {
-  Header, Missions, Rockets, Profile 
+  Header, Missions, Rockets, Profile,
 };

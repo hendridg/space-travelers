@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Header, Missions, Rockets, Profile } from './components';
+// prettier-ignore
+import {
+  Header, Missions, Rockets, Profile,
+} from './components';
 import './App.css';
 
 function App() {
