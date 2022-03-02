@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const WrapperHeader = styled.div`
   display: flex;
@@ -27,14 +29,47 @@ function Header() {
         </div>
         <nav>
           <ul>
-            <li>Rockets</li>
-            <li>Mission</li>
-            <li>My Profile</li>
+            <li>
+              <LinkNavComponent to="/">
+                <p>Rockets</p>
+              </LinkNavComponent>
+            </li>
+            <li>
+              <LinkNavComponent to="/missions">
+                <p>Mission</p>
+              </LinkNavComponent>
+            </li>
+            <li>
+              <LinkNavComponent to="/profile">
+                <p>My Profile</p>
+              </LinkNavComponent>
+            </li>
           </ul>
         </nav>
       </Container>
     </WrapperHeader>
   );
 }
+
+const LinkNavComponent = ({ children, ...restProps }) => {
+  const { to } = restProps;
+  const activeStyle = {
+    textDecoration: 'underline',
+  };
+
+  return (
+    <NavLink
+      to={to}
+      className="nav-link"
+      style={({ isActive }) => (isActive ? activeStyle : undefined)}
+    >
+      {children}
+    </NavLink>
+  );
+};
+
+LinkNavComponent.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default Header;

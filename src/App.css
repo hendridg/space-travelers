@@ -55,6 +55,10 @@ nav > ul > li {
   margin-left: 1rem;
 }
 
+.nav-link {
+  text-decoration: none;
+}
+
 .App-link {
   color: #61dafb;
 }
