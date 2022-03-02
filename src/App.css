@@ -24,6 +24,37 @@
   color: white;
 }
 
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.header-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header-logo > img {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.25rem 1rem;
+}
+
+nav > ul {
+  display: flex;
+  padding: 0;
+  list-style: none;
+  align-items: center;
+}
+
+nav > ul > li {
+  margin-left: 1rem;
+}
+
 .App-link {
   color: #61dafb;
 }

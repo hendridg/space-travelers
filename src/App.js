@@ -1,10 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Header, Missions, Rockets, Profile } from './components';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello from App</h1>
-    </div>
+    <Router className="App">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Missions />} />
+        <Route path="/rockets" element={<Rockets />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </Router>
   );
 }
 
