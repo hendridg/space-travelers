@@ -7,14 +7,17 @@ import './App.css';
 
 function App() {
   return (
-    <Router className="App">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Rockets />} />
-        <Route path="/missions" element={<Missions />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      <Router className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Rockets />} />
+          <Route path="/missions" element={<Missions />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/*" element={<h1>Don&apos;t exist</h1>} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
