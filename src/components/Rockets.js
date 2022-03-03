@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectRockets,
@@ -54,6 +54,23 @@ const Button = styled.div`
   padding: 0.8rem 2rem;
   border-radius: 5px;
   cursor: pointer;
+
+  ${(props) => props.cancel
+    && css`
+      background: white;
+      color: gray;
+      border: 1px gray solid;
+    `}
+`;
+
+const Span = styled.span`
+  background-color: #1ca3b9;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  padding: 0.2rem;
+  margin-right: 0.5rem;
+  border-radius: 2px;
 `;
 
 function Rockets() {
@@ -71,6 +88,7 @@ function Rockets() {
             description={rocket.description}
             id={rocket.id}
             flickrImg={rocket.flickrImg[0]}
+            reserved={rocket.reserved}
           />
         ))}
     </WrapperRockets>
@@ -79,7 +97,7 @@ function Rockets() {
 
 const CardRocket = (props) => {
   const {
-    id, name, description, flickrImg,
+    id, name, description, flickrImg, reserved,
   } = props;
   const dispatch = useDispatch();
   return (
@@ -97,13 +115,32 @@ const CardRocket = (props) => {
       </ImgContainer>
       <MainContainer>
         <h2>{name}</h2>
-        <p>{description}</p>
-        <Button type="button" onClick={() => dispatch(reserve(id))}>
-          Reserve Rocket
+        <p>
+          {reserved ? (
+            <div>
+              <p>
+                <Span>Reserved</Span>
+                {description}
+              </p>
+            </div>
+          ) : (
+            description
+          )}
+        </p>
+        <Button
+          type="button"
+          cancel={reserved}
+          onClick={() => dispatch(reserve(id))}
+        >
+          {reserved ? 'Cancel Reservation' : 'Reserve Rocket'}
         </Button>
       </MainContainer>
     </CardContainer>
   );
+};
+
+CardRocket.defaultProps = {
+  reserved: false,
 };
 
 CardRocket.propTypes = {
@@ -111,6 +148,7 @@ CardRocket.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   flickrImg: PropTypes.string.isRequired,
+  reserved: PropTypes.bool,
 };
 
 export default Rockets;
