@@ -35,6 +35,7 @@ const rocketsSlice = createSlice({
           name: rocket.rocket_name,
           type: rocket.rocket_type,
           flickrImg: rocket.flickr_images,
+          description: rocket.description,
         }));
         return {
           ...state,
