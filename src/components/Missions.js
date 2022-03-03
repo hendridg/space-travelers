@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectMissions,
   selectStatusMissions,
+  joined,
 } from '../redux/missions/missions';
 
 const WrapperMissions = styled.div`
@@ -39,6 +40,7 @@ function Missions() {
 
 const Table = (props) => {
   const { missions } = props;
+  const dispatch = useDispatch();
   const styleTable = {
     borderCollapse: 'collapse',
     width: '100%',
@@ -52,31 +54,47 @@ const Table = (props) => {
   return (
     <div style={{ marginTop: '1rem' }}>
       <table style={styleTable}>
-        <tr>
-          <th style={styleTdTh}>Missions</th>
-          <th style={styleTdTh}>Descriptions</th>
-          <th style={styleTdTh}>Status</th>
-          <th style={styleTdTh}>Join</th>
-        </tr>
-        {missions.map((mission) => (
-          <tr key={mission.id}>
-            <td style={styleTdTh}>{mission.name}</td>
-            <td style={styleTdTh}>{mission.description}</td>
-            <td style={styleTdTh} className="td-selected">
-              <p className="tag-member">NOT A MEMBER</p>
-            </td>
-            <td style={styleTdTh} className="td-selected">
-              <Button type="button">Join Mission</Button>
-            </td>
+        <thead>
+          <tr>
+            <th style={styleTdTh}>Missions</th>
+            <th style={styleTdTh}>Descriptions</th>
+            <th style={styleTdTh}>Status</th>
+            <th style={styleTdTh}>Join</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {missions.map((mission) => (
+            <tr key={mission.id}>
+              <td style={styleTdTh}>{mission.name}</td>
+              <td style={styleTdTh}>{mission.description}</td>
+              <td style={styleTdTh} className="td-selected">
+                <p className="tag-member">NOT A MEMBER</p>
+              </td>
+              <td style={styleTdTh} className="td-selected">
+                <Button
+                  type="button"
+                  onClick={() => dispatch(joined(mission.id))}
+                >
+                  Join Mission
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
 };
 
 Table.propTypes = {
-  missions: PropTypes.arrayOf.isRequired,
+  missions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      join: PropTypes.bool,
+    }).isRequired,
+  ).isRequired,
 };
 
 export default Missions;

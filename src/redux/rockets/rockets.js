@@ -22,6 +22,21 @@ const rocketsSlice = createSlice({
       ...state,
       countRocket: state.countRocket + 1,
     }),
+    reserve: (state, action) => {
+      const newRockets = state.rockets.map((rocket) => {
+        if (rocket.id === action.payload) {
+          if (!rocket.reserved) {
+            return { ...rocket, reserved: true };
+          }
+          return { ...rocket, reserved: !rocket.reserved };
+        }
+        return rocket;
+      });
+      return {
+        ...state,
+        rockets: newRockets,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,7 +61,7 @@ const rocketsSlice = createSlice({
   },
 });
 
-export const { incrementedRocket } = rocketsSlice.actions;
+export const { incrementedRocket, reserve } = rocketsSlice.actions;
 export const selectCountRocket = (state) => state.rockets.countRocket;
 export const selectRockets = (state) => state.rockets.rockets;
 export const selectStatusRocket = (state) => state.rockets.statusRocket;
