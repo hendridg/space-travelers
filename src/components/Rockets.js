@@ -115,18 +115,16 @@ const CardRocket = (props) => {
       </ImgContainer>
       <MainContainer>
         <h2>{name}</h2>
-        <p>
-          {reserved ? (
-            <div>
-              <p>
-                <Span>Reserved</Span>
-                {description}
-              </p>
-            </div>
-          ) : (
-            description
-          )}
-        </p>
+        {reserved ? (
+          <div>
+            <p>
+              <Span>Reserved</Span>
+              {description}
+            </p>
+          </div>
+        ) : (
+          <p>{description}</p>
+        )}
         <Button
           type="button"
           cancel={reserved}
