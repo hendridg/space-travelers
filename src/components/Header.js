@@ -8,6 +8,7 @@ const WrapperHeader = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  border-bottom: 1px lightgray solid;
 `;
 
 const Container = styled.div`
