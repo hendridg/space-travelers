@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { selectRockets, selectStatusRocket } from '../redux/rockets/rockets';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectRockets,
+  selectStatusRocket,
+  reserve,
+} from '../redux/rockets/rockets';
 
 const WrapperRockets = styled.div`
   display: flex;
@@ -60,12 +64,13 @@ function Rockets() {
   return (
     <WrapperRockets>
       {status === 'done'
-        && rockets.map((rocket) => (
+        && rockets?.map((rocket) => (
           <CardRocket
             key={rocket.id}
             name={rocket.name}
             description={rocket.description}
-            flickrImg={rocket.flickrImg}
+            id={rocket.id}
+            flickrImg={rocket.flickrImg[0]}
           />
         ))}
     </WrapperRockets>
@@ -73,12 +78,15 @@ function Rockets() {
 }
 
 const CardRocket = (props) => {
-  const { name, description, flickrImg } = props;
+  const {
+    id, name, description, flickrImg,
+  } = props;
+  const dispatch = useDispatch();
   return (
     <CardContainer>
       <ImgContainer>
         <img
-          src={flickrImg[0]}
+          src={flickrImg}
           alt="imagen"
           style={{
             objectFit: 'cover',
@@ -90,16 +98,19 @@ const CardRocket = (props) => {
       <MainContainer>
         <h2>{name}</h2>
         <p>{description}</p>
-        <Button type="button">Reserve Rocket</Button>
+        <Button type="button" onClick={() => dispatch(reserve(id))}>
+          Reserve Rocket
+        </Button>
       </MainContainer>
     </CardContainer>
   );
 };
 
 CardRocket.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  flickrImg: PropTypes.arrayOf.isRequired,
+  flickrImg: PropTypes.string.isRequired,
 };
 
 export default Rockets;
