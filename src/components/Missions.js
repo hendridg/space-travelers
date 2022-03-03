@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -24,6 +24,31 @@ const Button = styled.button`
   padding: 0.4rem 1rem;
   border-radius: 4px;
   cursor: pointer;
+
+  ${(props) => props.joined
+    && css`
+      background: white;
+      color: red;
+      border: 1px red solid;
+    `}
+`;
+
+const Tag = styled.p`
+  background-color: gray;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: white;
+  padding: 0.125rem 0.2rem;
+  text-align: center;
+  border-radius: 3px;
+
+  ${(props) => props.join
+    && css`
+      background: #1ca3b9;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: bold;
+    `}
 `;
 
 function Missions() {
@@ -68,14 +93,17 @@ const Table = (props) => {
               <td style={styleTdTh}>{mission.name}</td>
               <td style={styleTdTh}>{mission.description}</td>
               <td style={styleTdTh} className="td-selected">
-                <p className="tag-member">NOT A MEMBER</p>
+                <Tag join={mission.join}>
+                  {mission.join ? 'Active Member' : 'NOT A MEMBER'}
+                </Tag>
               </td>
               <td style={styleTdTh} className="td-selected">
                 <Button
                   type="button"
+                  joined={mission.join}
                   onClick={() => dispatch(joined(mission.id))}
                 >
-                  Join Mission
+                  {mission.join ? 'Leave Mission' : 'Join Mission'}
                 </Button>
               </td>
             </tr>
