@@ -1,21 +1,25 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  incrementedMission,
-  decrementedMission,
+  selectMissions,
+  selectStatusMissions,
 } from '../redux/missions/missions';
 
 function Missions() {
-  const dispatch = useDispatch();
+  const missions = useSelector(selectMissions);
+  const status = useSelector(selectStatusMissions);
+
+  if (status === 'loading') return <h1>Loading...</h1>;
   return (
-    <div>
+    <div style={{ maxWidth: '60rem', margin: '0 auto' }}>
       Missions
-      <button type="button" onClick={() => dispatch(incrementedMission())}>
-        Click me!
-      </button>
-      <button type="button" onClick={() => dispatch(decrementedMission(2))}>
-        Click me!
-      </button>
+      {status === 'done'
+        && missions.map((mission) => (
+          <div key={mission.id}>
+            <h2>{mission.name}</h2>
+            <p>{mission.description}</p>
+          </div>
+        ))}
     </div>
   );
 }

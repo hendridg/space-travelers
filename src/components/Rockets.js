@@ -1,17 +1,26 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { incrementedRocket } from '../redux/rockets/rockets';
-import { selectCountMission } from '../redux/missions/missions';
+import { useSelector } from 'react-redux';
+import { selectRockets, selectStatusRocket } from '../redux/rockets/rockets';
 
 function Rockets() {
-  const dispatch = useDispatch();
-  const count = useSelector(selectCountMission);
+  const rockets = useSelector(selectRockets);
+  const status = useSelector(selectStatusRocket);
+
+  if (status === 'loading') return <h1>Loading...</h1>;
   return (
     <div>
-      Rocket
-      <button type="button" onClick={() => dispatch(incrementedRocket())}>
-        {`Click me! ${count}`}
-      </button>
+      <h1>Rockets</h1>
+      {status === 'done'
+        && rockets.map((rocket) => (
+          <div key={rocket.id}>
+            <p>{`${rocket.name} ${rocket.type}`}</p>
+            <img
+              src={rocket.flickrImg[0]}
+              alt="imagen"
+              style={{ height: '250px', with: '250px' }}
+            />
+          </div>
+        ))}
     </div>
   );
 }
