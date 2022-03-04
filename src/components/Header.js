@@ -36,6 +36,11 @@ function Header() {
               </LinkNavComponent>
             </li>
             <li>
+              <LinkNavComponent to="/dragons">
+                <p>Dragons</p>
+              </LinkNavComponent>
+            </li>
+            <li>
               <LinkNavComponent to="/missions">
                 <p>Mission</p>
               </LinkNavComponent>
