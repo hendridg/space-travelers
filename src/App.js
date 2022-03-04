@@ -5,7 +5,7 @@ import { fetchApiRockets } from './redux/rockets/rockets';
 import { fetchApiMissions } from './redux/missions/missions';
 // prettier-ignore
 import {
-  Header, Missions, Rockets, Profile,
+  Header, Missions, Rockets, Profile, Dragons,
 } from './components';
 import './App.css';
 
@@ -23,6 +23,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Rockets />} />
+          <Route path="/dragons" element={<Dragons />} />
           <Route path="/missions" element={<Missions />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/*" element={<h1>Don&apos;t exist</h1>} />
