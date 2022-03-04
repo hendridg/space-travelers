@@ -60,7 +60,7 @@ const Span = styled.span`
 
 const Card = (props) => {
   const {
-    id, name, description, flickrImg, reserved, reserve,
+    id, name, description, flickrImg, textBtn, reserved, reserve,
   } = props;
   const dispatch = useDispatch();
   return (
@@ -93,7 +93,7 @@ const Card = (props) => {
           cancel={reserved}
           onClick={() => dispatch(reserve(id))}
         >
-          {reserved ? 'Cancel Reservation' : 'Reserve Rocket'}
+          {reserved ? textBtn[0] : textBtn[1]}
         </Button>
       </MainContainer>
     </CardContainer>
@@ -108,6 +108,10 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  textBtn: PropTypes.arrayOf({
+    0: PropTypes.string.isRequired,
+    1: PropTypes.string.isRequired,
+  }).isRequired,
   flickrImg: PropTypes.string.isRequired,
   reserve: PropTypes.func.isRequired,
   reserved: PropTypes.bool,

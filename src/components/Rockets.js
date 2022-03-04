@@ -34,6 +34,7 @@ function Rockets() {
             flickrImg={rocket.flickrImg[0]}
             reserved={rocket.reserved}
             reserve={reserve}
+            textBtn={['Cancel Reservation', 'Reserve Rocket']}
           />
         ))}
     </WrapperRockets>
