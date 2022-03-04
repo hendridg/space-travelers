@@ -8,19 +8,26 @@ import { selectRockets } from '../redux/rockets/rockets';
 const WrapperProfile = styled.div`
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 0 auto;
+  width: 90%;
   max-width: 60rem;
   text-align: left;
+  gap: 0.5rem;
 `;
 
-const WrapperCard = styled.div`
+const WrapperCards = styled.div`
+  flex: 1;
+`;
+
+const ContainerCard = styled.div`
   border: 1px solid gray;
+  flex: 1;
   border-radius: 3px;
-  margin-top: 1rem;
   padding: 1rem;
-  width: 18rem;
+  margin-top: 0.25rem;
 `;
 
 function Profile() {
@@ -30,18 +37,18 @@ function Profile() {
   const rocketsFilter = rockets.filter((rocket) => rocket.reserved === true);
   return (
     <WrapperProfile>
-      <div>
+      <WrapperCards>
         <h2>My Missions</h2>
         {missionsFilter.map((mission) => (
           <Card key={mission.name} name={mission.name} />
         ))}
-      </div>
-      <div>
+      </WrapperCards>
+      <WrapperCards>
         <h2>My Rockets</h2>
         {rocketsFilter.map((rocket) => (
           <Card key={rocket.name} name={rocket.name} />
         ))}
-      </div>
+      </WrapperCards>
     </WrapperProfile>
   );
 }
@@ -49,9 +56,9 @@ function Profile() {
 const Card = (props) => {
   const { name } = props;
   return (
-    <WrapperCard>
+    <ContainerCard>
       <h3>{name}</h3>
-    </WrapperCard>
+    </ContainerCard>
   );
 };
 
