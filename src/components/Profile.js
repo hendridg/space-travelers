@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectMissions } from '../redux/missions/missions';
 import { selectRockets } from '../redux/rockets/rockets';
+import { selectDragons } from '../redux/dragons/dragons';
 
 const WrapperProfile = styled.div`
   display: flex;
@@ -33,8 +34,10 @@ const ContainerCard = styled.div`
 function Profile() {
   const missions = useSelector(selectMissions);
   const rockets = useSelector(selectRockets);
+  const dragons = useSelector(selectDragons);
   const missionsFilter = missions.filter((mission) => mission.join === true);
   const rocketsFilter = rockets.filter((rocket) => rocket.reserved === true);
+  const dragonsFilter = dragons.filter((dragon) => dragon.reserved === true);
   return (
     <WrapperProfile>
       <WrapperCards>
@@ -47,6 +50,12 @@ function Profile() {
         <h2>My Rockets</h2>
         {rocketsFilter.map((rocket) => (
           <Card key={rocket.name} name={rocket.name} />
+        ))}
+      </WrapperCards>
+      <WrapperCards>
+        <h2>My Dragons</h2>
+        {dragonsFilter.map((dragon) => (
+          <Card key={dragon.name} name={dragon.name} />
         ))}
       </WrapperCards>
     </WrapperProfile>
