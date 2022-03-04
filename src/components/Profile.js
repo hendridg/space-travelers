@@ -4,44 +4,60 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectMissions } from '../redux/missions/missions';
 import { selectRockets } from '../redux/rockets/rockets';
+import { selectDragons } from '../redux/dragons/dragons';
 
 const WrapperProfile = styled.div`
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
   align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 0 auto;
+  width: 90%;
   max-width: 60rem;
   text-align: left;
+  gap: 0.5rem;
 `;
 
-const WrapperCard = styled.div`
+const WrapperCards = styled.div`
+  flex: 1;
+`;
+
+const ContainerCard = styled.div`
   border: 1px solid gray;
+  flex: 1;
   border-radius: 3px;
-  margin-top: 1rem;
   padding: 1rem;
-  width: 18rem;
+  margin-top: 0.25rem;
 `;
 
 function Profile() {
   const missions = useSelector(selectMissions);
   const rockets = useSelector(selectRockets);
+  const dragons = useSelector(selectDragons);
   const missionsFilter = missions.filter((mission) => mission.join === true);
   const rocketsFilter = rockets.filter((rocket) => rocket.reserved === true);
+  const dragonsFilter = dragons.filter((dragon) => dragon.reserved === true);
   return (
     <WrapperProfile>
-      <div>
+      <WrapperCards>
         <h2>My Missions</h2>
         {missionsFilter.map((mission) => (
           <Card key={mission.name} name={mission.name} />
         ))}
-      </div>
-      <div>
+      </WrapperCards>
+      <WrapperCards>
         <h2>My Rockets</h2>
         {rocketsFilter.map((rocket) => (
           <Card key={rocket.name} name={rocket.name} />
         ))}
-      </div>
+      </WrapperCards>
+      <WrapperCards>
+        <h2>My Dragons</h2>
+        {dragonsFilter.map((dragon) => (
+          <Card key={dragon.name} name={dragon.name} />
+        ))}
+      </WrapperCards>
     </WrapperProfile>
   );
 }
@@ -49,9 +65,9 @@ function Profile() {
 const Card = (props) => {
   const { name } = props;
   return (
-    <WrapperCard>
+    <ContainerCard>
       <h3>{name}</h3>
-    </WrapperCard>
+    </ContainerCard>
   );
 };
 
