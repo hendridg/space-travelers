@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { fetchApiRockets } from './redux/rockets/rockets';
 import { fetchApiMissions } from './redux/missions/missions';
+import { fetchApiDragons } from './redux/dragons/dragons';
 // prettier-ignore
 import {
   Header, Missions, Rockets, Profile, Dragons,
@@ -12,10 +13,12 @@ import './App.css';
 function App() {
   const API_ROCKETS = 'https://api.spacexdata.com/v3/rockets';
   const API_MISSIONS = 'https://api.spacexdata.com/v3/missions';
+  const API_DRAGONS = 'https://api.spacexdata.com/v3/dragons';
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchApiMissions(API_MISSIONS));
     dispatch(fetchApiRockets(API_ROCKETS));
+    dispatch(fetchApiDragons(API_DRAGONS));
   }, []);
   return (
     <div className="App">
