@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { fetchApiRockets } from './redux/rockets/rockets';
 import { fetchApiMissions } from './redux/missions/missions';
 import { fetchApiDragons } from './redux/dragons/dragons';
-// prettier-ignore
+import { Header } from './components';
 import {
-  Header, Missions, Rockets, Profile, Dragons,
-} from './components';
+  Rockets, Dragons, Missions, Profile,
+} from './pages';
 import './App.css';
 
 function App() {

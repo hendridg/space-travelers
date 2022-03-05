@@ -35,28 +35,25 @@ function Profile() {
   const missions = useSelector(selectMissions);
   const rockets = useSelector(selectRockets);
   const dragons = useSelector(selectDragons);
-  const missionsFilter = missions.filter((mission) => mission.join === true);
-  const rocketsFilter = rockets.filter((rocket) => rocket.reserved === true);
-  const dragonsFilter = dragons.filter((dragon) => dragon.reserved === true);
   return (
     <WrapperProfile>
       <WrapperCards>
         <h2>My Missions</h2>
-        {missionsFilter.map((mission) => (
-          <Card key={mission.name} name={mission.name} />
-        ))}
+        {missions.map(
+          (mission) => mission.join && <Card key={mission.id} name={mission.name} />,
+        )}
       </WrapperCards>
       <WrapperCards>
         <h2>My Rockets</h2>
-        {rocketsFilter.map((rocket) => (
-          <Card key={rocket.name} name={rocket.name} />
-        ))}
+        {rockets.map(
+          (rocket) => rocket.reserved && <Card key={rocket.id} name={rocket.name} />,
+        )}
       </WrapperCards>
       <WrapperCards>
         <h2>My Dragons</h2>
-        {dragonsFilter.map((dragon) => (
-          <Card key={dragon.name} name={dragon.name} />
-        ))}
+        {dragons.map(
+          (dragon) => dragon.reserved && <Card key={dragon.id} name={dragon.name} />,
+        )}
       </WrapperCards>
     </WrapperProfile>
   );
